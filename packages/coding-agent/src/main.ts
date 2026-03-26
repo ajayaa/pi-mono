@@ -749,6 +749,11 @@ export async function main(args: string[]) {
 		process.exit(0);
 	}
 
+	if (parsed.rpcSocket && parsed.mode !== "rpc") {
+		console.error(chalk.red("Error: --rpc-socket requires --mode rpc"));
+		process.exit(1);
+	}
+
 	migrateKeybindingsConfigFile(agentDir);
 	time("migrateKeybindingsConfigFile");
 
@@ -861,7 +866,7 @@ export async function main(args: string[]) {
 
 	if (mode === "rpc") {
 		printTimings();
-		await runRpcMode(session);
+		await runRpcMode(session, { socketPath: parsed.rpcSocket });
 	} else if (isInteractive) {
 		if (scopedModels.length > 0 && (parsed.verbose || !settingsManager.getQuietStartup())) {
 			const modelList = scopedModels

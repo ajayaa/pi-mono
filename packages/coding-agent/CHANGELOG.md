@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Added reconnectable Unix-socket RPC mode via `--rpc-socket <path>`, keeping pi alive across client disconnects while accepting one connected RPC client at a time.
+
 ## [0.63.1] - 2026-03-27
 
 ### Added
